@@ -60,7 +60,8 @@ module.exports = config => {
   router.route('/files/:id').
     get(connect('./statResource', _ => ({ path: reqPath }))).
     patch(connect('./renameCopyMove', _ => ({ path: reqPath }))).
-    delete(connect('./remove', _ => ({ path: reqPath })));
+    delete(connect('./remove', _ => ({ path: reqPath }))).
+    put(connect('./unzipFile', _ => ({ path: reqPath })));
 
   router.route('/files').
     get(connect('./statResource', _ => ({ path: path.sep }))).
