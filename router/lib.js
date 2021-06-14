@@ -139,6 +139,16 @@ const checkName = name => {
   return name;
 };
 
+const isZipFile = filePath => {
+  const ext = path.extname(filePath).slice(1);
+  const zipExtensions= [ "zip", "tar", "gz", "7z", "rar" ]
+
+  if (ext && zipExtensions.includes(ext) ) {
+    return true
+  }
+  return false
+}
+
 /*
  * Either path or parent/basename must be specified in input args.
  * The function returns a promise.
@@ -187,6 +197,7 @@ const getResource = async ({
       canDelete: !!userParent && !config.readOnly,
       canRename: !!userParent && !config.readOnly,
       canCopy: !!userParent && !config.readOnly,
+      canUnzip: isZipFile(userPath),
       canEdit: stats.isFile() && !config.readOnly, // Only files can be edited
       canDownload: stats.isFile() // Only files can be downloaded
     }
